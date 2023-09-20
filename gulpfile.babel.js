@@ -16,8 +16,8 @@ gulp.task('build', () => {
     .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('watch', ['build'], () => {
-  gulp.watch(paths.src, ['build']);
-});
+gulp.task('watch', gulp.series('build', () => {
+  gulp.watch(paths.src, gulp.series('build'));
+}));
 
-gulp.task('default', ['watch']);
+gulp.task('default', gulp.series('watch'));
